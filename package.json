@@ -1,0 +1,34 @@
+{
+  "name": "pso2-price-log",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --compilers ls:livescript"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miyabisun/pso2-price-log.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/miyabisun/pso2-price-log/issues"
+  },
+  "homepage": "https://github.com/miyabisun/pso2-price-log#readme",
+  "dependencies": {
+    "clipboardy": "^1.1.1",
+    "file-tail": "^0.3.0",
+    "google-spreadsheet": "^2.0.3",
+    "google-spreadsheets": "^0.5.1",
+    "livescript": "^1.5.0",
+    "moment": "^2.18.1",
+    "prelude-ls": "^1.1.2"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.3.0",
+    "recursive-readdir-sync": "^1.0.6"
+  }
+}
