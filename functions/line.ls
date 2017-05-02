@@ -27,6 +27,7 @@ module.exports = (creds, text)-->
   | text |> is-initialize =>
     console.info "=> initialize!"
     id = parsed.message - /^.*\/init /
+    unless id => return
     err, sheet <- Sheet id, creds
     err, row <- next-row sheet
     status <<< {sheet, row, parsed.player-id}
@@ -53,9 +54,9 @@ module.exports = (creds, text)-->
     if status.player-id isnt parsed.player-id => return
     console.info "=> next!"
     unless status.sheet => return console.info "now loading..."
-    unless status.row => return console.info "now loading..."
+    unless status.row => return console.info "all item checked!"
     status.row.\名称 |> to-clipboard
-    console.info "#{row.\名称} copied."
+    console.info "#{status.row.\名称} copied."
   | status.mode is \update =>
     if status.player-id isnt parsed.player-id => return
     console.info "=> update!"
@@ -77,7 +78,7 @@ module.exports = (creds, text)-->
         status.row = target-row
         console.info "regist #{target-row.\名称} is successful."
     | _ =>
-      id = parsed.message |> (is /([^,]*,)) |> (.1)
+      id = parsed.message |> (is /([^,]*),/) |> (.1)
       price = parsed.message |> (is /,(.*)/) |> (.1) |> parse-num
       err, target-row <- regist-row status.sheet, id, price
       console.error that if err
