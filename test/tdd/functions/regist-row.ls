@@ -3,7 +3,6 @@ require! {
   moment
   \prelude-ls : {each, find, at, flip}
   \../../../functions/regist-row.ls : main
-  \../../../functions/next-row.ls : Row
   \../../../functions/sheet.ls : Spreadsheet
   \../../../configs/pso2.json : creds
 }
@@ -13,7 +12,7 @@ describe filename, ->
   params = {}
   before (done)!->
     @timeout 5_000ms
-    _, sheet <- Spreadsheet "1kEbYw_LzArMwD5WWtF76N3vMF1N26X4jeMFbUaT8BHI", creds
+    sheet_err, sheet <- Spreadsheet "1kEbYw_LzArMwD5WWtF76N3vMF1N26X4jeMFbUaT8BHI", creds
     err, row <- main sheet, \test, 5000
     params <<< {sheet, err, row}
     done!
@@ -23,5 +22,6 @@ describe filename, ->
     params.row |> expect >> (.to.be.ok)
   specify \row_datum_is_valid ->
     params.row |> expect >> (.to.have.contain.keys <[名称 相場 更新日時]>)
-    params.row |> console.log
+  specify \row_delete (done)!->
+    params.row.del done
 

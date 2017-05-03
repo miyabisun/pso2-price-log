@@ -5,8 +5,8 @@ require! {
 }
 
 filename = __filename.replace(/^.*(test)/, \test)
-describe.only filename, ->
+describe filename, ->
   specify \normal ->
-    reset (status = {})
-    |> console.log
+    main (status = {})
+    status |> expect >> (.to.have.contain.keys <[sheet row targetRow playerId mode]>)
 
