@@ -64,7 +64,7 @@ module.exports = (creds, text)-->
     err, new-row <- update-row status.sheet, status.target-row.\名称, price
     err, row <- next-row status.sheet
     status <<< {row}
-    console.info "update #{target-row.\名称} is successful."
+    console.info "update #{status.target-row.\名称} is successful."
   | status.mode is \regist =>
     console.info "=> regist item!"
     switch
