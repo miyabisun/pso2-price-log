@@ -5,7 +5,9 @@ require! {
   \./is-next.ls
   \./is-party.ls
   \./is-regist.ls
+  \./is-reload.ls
   \./is-stop.ls
+  \./reset.ls
   \./sheet.ls : Sheet
   \./next-row.ls
   \./regist-row.ls
@@ -14,11 +16,7 @@ require! {
   \./parse.ls
   \./parse-num.ls
 }
-status =
-  sheet: null
-  row: null
-  player-id: null
-  mode: \update
+reset (status = {})
 
 module.exports = (creds, text)-->
   parsed = text |> parse
@@ -26,8 +24,8 @@ module.exports = (creds, text)-->
   switch
   | text |> is-initialize =>
     console.info "=> initialize!"
-    id = parsed.message - /^.*\/init /
-    unless id => return
+    unless (id = parsed.message - /^.*\/init /) => return
+    reset status
     err, sheet <- Sheet id, creds
     err, row <- next-row sheet
     status <<< {sheet, row, parsed.player-id}
@@ -35,39 +33,39 @@ module.exports = (creds, text)-->
   | text |> is-end =>
     if status.player-id isnt parsed.player-id => return
     console.info "=> end!"
-    status <<<
-      sheet: null
-      row: null
-      player-id: null
-      mode: \update
+    reset status
+  if status.player-id isnt parsed.player-id => return
+  switch
   | text |> is-regist =>
-    if status.player-id isnt parsed.player-id => return
     console.info "=> regist!"
     status <<< mode: \regist
     console.info "start register mode."
   | text |> is-stop =>
-    if status.player-id isnt parsed.player-id => return
     console.info "=> stop!"
     status <<< mode: \update
     console.info "end register mode."
+  | text |> is-reload =>
+    console.info "=> reload!"
+    err, row <- next-row status.sheet
+    status <<< {row, target-row: null}
+    console.info "reload is successful."
   | text |> is-next =>
-    if status.player-id isnt parsed.player-id => return
     console.info "=> next!"
     unless status.sheet => return console.info "now loading..."
     unless status.row => return console.info "all item checked!"
     status.row.\名称 |> to-clipboard
+    status <<< target-row: status.row
     console.info "#{status.row.\名称} copied."
   | status.mode is \update =>
-    if status.player-id isnt parsed.player-id => return
     console.info "=> update!"
     unless status.sheet => return
+    unless status.target-row => return
     price = parsed.message |> parse-num
-    err, target-row <- update-row status.sheet, status.row.\名称, price
+    err, new-row <- update-row status.sheet, status.target-row.\名称, price
     err, row <- next-row status.sheet
     status <<< {row}
     console.info "update #{target-row.\名称} is successful."
   | status.mode is \regist =>
-    if status.player-id isnt parsed.player-id => return
     console.info "=> regist item!"
     switch
     | parsed.message isnt /,/ =>

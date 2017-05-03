@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node bin/windows.js",
     "test": "mocha --compilers ls:livescript"
   },
   "repository": {
