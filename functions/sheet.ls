@@ -4,7 +4,7 @@ require! {
   \google-spreadsheet : GoogleSpreadsheet
 }
 
-module.exports = (id, creds, cb)->
+module.exports = (id, creds, sheet-name, cb)->
   doc = new GoogleSpreadsheet id
   err <- doc.use-service-account-auth creds
   if err => cb err, null; return
@@ -12,6 +12,6 @@ module.exports = (id, creds, cb)->
   if err => cb err, null; return
   info.worksheets
   |> (or [])
-  |> find (.title is \price)
+  |> find (.title is sheet-name)
   |> cb null, _
 

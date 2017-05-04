@@ -1,8 +1,7 @@
 module.exports = (status)->
   status <<<
     sheet: null
-    row: null
-    target-row: null
+    rows: []
     player-id: null
     mode: \update
 

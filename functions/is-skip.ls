@@ -3,5 +3,5 @@ require! {
 }
 
 module.exports = (text)->
-  text |> parse |> (.message is /\/reload/) |> Boolean
+  text |> parse |> (.message is /\/skip/) |> Boolean
 

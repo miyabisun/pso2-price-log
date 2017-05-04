@@ -4,7 +4,7 @@ require! {
 
 module.exports = (sheet, id, price, cb)-->
   err, [row] <- sheet.get-rows do
-    offset: 1
+    offset: 0
     limit: 1
     query: "名称 = \"#id\""
   switch
@@ -15,9 +15,10 @@ module.exports = (sheet, id, price, cb)-->
       \名称 : id
       \仕入値 : price
       \登録日時 : moment!.format "YYYY/MM/DD HH:mm"
-    _, [row] <- sheet.get-rows do
+    get-rows-err, [row] <- sheet.get-rows do
       offset: 1
       limit: 1
       query: "名称 = \"#id\""
+    console.error that if get-rows-err
     cb err, row
 
