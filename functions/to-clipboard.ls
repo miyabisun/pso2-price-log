@@ -1,7 +1,7 @@
 require! {
-  clipboardy
+  child_process: {exec}
 }
 
 module.exports = (text)->
-  clipboardy.write-sync text
+  <- exec "SET /p DUMMY=\"#text\"<nul | clip"
 

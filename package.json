@@ -19,7 +19,6 @@
   },
   "homepage": "https://github.com/miyabisun/pso2-price-log#readme",
   "dependencies": {
-    "clipboardy": "^1.1.1",
     "file-tail": "^0.3.0",
     "google-spreadsheet": "^2.0.3",
     "google-spreadsheets": "^0.5.1",

@@ -1,4 +1,5 @@
 require("livescript");
+var fs = require("fs");
 var moment = require("moment");
 var file_tail = require("file-tail");
 var line = require("../functions/line.ls");
@@ -9,11 +10,22 @@ var path = [
   moment().subtract(9, "hours").format("YYYYMMDD"),
   "_00.txt"
 ].join("");
-console.log(path);
-var ft = file_tail.startTailing({
-  fd: path,
-  encoding: "utf-16le"
-});
-var creds = require(process.env.HOMEPATH + "\\pso2.json");
-ft.on("line", line(creds));
+var creds_path = [
+  process.env.HOMEPATH,
+  "\\pso2.json"
+].join("");
+
+console.info("required files path:", {ChatLog: path, Creds: creds_path});
+
+try {
+  var creds = JSON.parse(fs.readFileSync(creds_path).toString());
+  var ft = file_tail.startTailing({
+    fd: path,
+    encoding: "utf-16le"
+  });
+  ft.on("line", line(creds));
+  console.info("Get Ready.");
+} catch (e) {
+  console.error("not found files...");
+}
 
