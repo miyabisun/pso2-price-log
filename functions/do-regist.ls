@@ -7,8 +7,8 @@ require! {
 module.exports = ({status, text}, cb)->
   parsed = text |> parse
   switch
-  | parsed.message is /([^,]*),(\w*)/ =>
-    [_, id, price] = parsed.message.match /([^,]*),(\w*)/
+  | parsed.message is /,/ =>
+    [id, price] = parsed.message.split \,
     price = price |> parse-num
   | _ =>
     id = parsed.message
