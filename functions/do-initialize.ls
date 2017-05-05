@@ -1,9 +1,6 @@
 require! {
-  \prelude-ls : {last}
-  \./parse.ls
   \./reset.ls
   \./sheet.ls : Sheet
-  \./next-row.ls
 }
 
 module.exports = ({status, particle, creds}, cb)->

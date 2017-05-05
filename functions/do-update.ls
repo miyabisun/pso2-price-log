@@ -1,16 +1,14 @@
 require! {
-  \prelude-ls : {empty, last}
-  \./parse.ls
   \./parse-num.ls
   \./update-row.ls
 }
 
-module.exports = ({text, status}, cb)->
-  if empty status.rows => console.info "nothing items."; return
-  parsed = text |> parse
-  price = parsed.message |> parse-num
-  last-row = status.rows |> last
-  err, new-row <- update-row status.sheet, last-row.\名称, price
-  console.info "update: #{last-row.\名称} => #{price.to-locale-string!}"
-  cb!
+module.exports = ({particle, status}, cb)->
+  unless (row = status.pointer |> at status.rows)
+    console.info "item not found."
+  else
+    price = particle.message |> parse-num
+    update-row status.sheet, row.\名称, price, (->)
+    console.info "update: #{row.\名称} => #{price.to-locale-string!}"
+    cb!
 

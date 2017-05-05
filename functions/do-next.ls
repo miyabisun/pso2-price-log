@@ -1,17 +1,15 @@
 require! {
-  \prelude-ls : {last}
-  \./next-row.ls
+  \prelude-ls : {at, last}
   \./to-clipboard.ls
 }
 
 module.exports = (status, cb)->
-  err, row <- next-row status.sheet
-  console.error that if err
-  if row
-    status.rows.push row
-    last-row = status.rows |> last
-    last-row.\名称 |> to-clipboard
-    console.info "target: #{last-row.\名称} (#{last-row.\更新日時}) #{last-row.\相場}"
+  if status.pointer >= status.rows.length
+    console.info "pointer is end."
   else
-    console.info "nothing items."
+    status.pointer++
+    row = status.pointer |> at status.rows
+    row.\名称 |> to-clipboard
+    console.info "target: #{row.\名称} (#{row.\更新日時}) #{row.\相場}"
+  cb!
 
