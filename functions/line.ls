@@ -18,33 +18,30 @@ require! {
 }
 reset (status = {})
 
-module.exports = (creds, text)-->
-  parsed = text |> parse
-  switch
-  | text |> is-party |> (not) =>
-    return
-  | text |> is-initialize =>
+module.exports = (creds, line)-->
+  particle = line |> parse
+  if particle.target isnt \PARTY => return
+  if particle.message is /\/init/ =>
     console.info "=> initialize!"
-    <- do-initialize {status, text, creds}
-    <- do-next status
-  | status.player-id isnt parsed.player-id =>
-    return
-  | text |> is-end =>
-    console.info "=> end!"
+    <- do-initialize {status, particle, creds}
+    <- do-refresh status
+  if status.player-id isnt particle.player-id => return
+  switch
+  | particle.message is /\/exit/ =>
+    console.info "=> exit!"
     reset status
-  | text |> is-regist =>
+  | particle.message is /\/regist/ =>
     console.info "=> regist!"
     status <<< mode: \regist
     console.info "start regist item mode."
-  | text |> is-stop =>
+  | particle.message is /\/stop/ =>
     console.info "=> stop!"
     status <<< mode: \update
     <- do-next status
     console.info "end regist item mode."
-  | text |> is-refresh =>
+  | particle.message is /\/refresh/ =>
     console.info "=> refresh!"
-    status.rows.length = 0
-    <- do-next status
+    <- do-refresh status.sheet
   | text |> is-prev =>
     console.info "=> prev!"
     <- do-prev status
