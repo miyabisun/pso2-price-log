@@ -4,14 +4,13 @@ require! {
   \./regist-row.ls
 }
 
-module.exports = ({status, text}, cb)->
-  parsed = text |> parse
+module.exports = ({status, particle}, cb)->
   switch
-  | parsed.message is /,/ =>
-    [id, price] = parsed.message.split \,
+  | particle.message is /,/ =>
+    [id, price] = particle.message.split \,
     price = price |> parse-num
   | _ =>
-    id = parsed.message
+    id = particle.message
     price = ""
   console.info "regist start to", id, price
   err, target-row <- regist-row status.sheet, id, price

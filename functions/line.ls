@@ -1,5 +1,6 @@
 require! {
   \./do-initialize.ls
+  \./do-refresh.ls
   \./do-next.ls
   \./do-prev.ls
   \./do-skip.ls
@@ -27,8 +28,8 @@ module.exports = (creds, line)-->
     console.info "=> regist!"
     status <<< mode: \regist
     console.info "start regist item mode."
-  | message is /\/stop/ =>
-    console.info "=> stop!"
+  | message is /\/end/ =>
+    console.info "=> end!"
     status <<< mode: \update
     <- do-refresh status
     console.info "end regist item mode."
@@ -44,9 +45,9 @@ module.exports = (creds, line)-->
     <- do-next status
   | status.mode is \regist =>
     console.info "=> regist item!"
-    <- do-regist {text, status}
+    <- do-regist {particle, status}
   | status.mode is \update =>
     console.info "=> update!"
-    <- do-update {text, status}
+    <- do-update {particle, status}
     <- do-next status
 

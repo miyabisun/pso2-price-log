@@ -13,8 +13,11 @@ module.exports = (sheet, id, price, cb)-->
   | _ =>
     err <- sheet.add-row do
       \名称 : id
-      \仕入値 : price
+      \仕入値 : price or 10000
       \登録日時 : moment!.format "YYYY/MM/DD HH:mm"
+      \相場 : price
+      \率 : unless price then "" else "100%"
+      \更新日時 : unless price then "" else moment!.format "YYYY/MM/DD HH:mm"
     get-rows-err, [row] <- sheet.get-rows do
       offset: 1
       limit: 1

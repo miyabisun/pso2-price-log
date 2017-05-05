@@ -1,10 +1,11 @@
 require! {
+  \prelude-ls : {at}
   \./parse-num.ls
   \./update-row.ls
 }
 
 module.exports = ({particle, status}, cb)->
-  unless (row = status.pointer |> at status.rows)
+  unless (row = status.rows |> at status.pointer)
     console.info "item not found."
   else
     price = particle.message |> parse-num

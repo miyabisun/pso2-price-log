@@ -1,6 +1,7 @@
 require! {
-  \prelude-ls : {head}
+  \prelude-ls : {empty, head}
   \./get-rows.ls
+  \./to-clipboard.ls
 }
 
 module.exports = (status, cb)-->
@@ -12,6 +13,6 @@ module.exports = (status, cb)-->
     return
   row = status.rows |> head
   row.\名称 |> to-clipboard
-  console.info "target: #{row.\名称} (#{row.\更新日時}) #{row.\相場}"
+  console.info "target: #{row.\名称} (#{row.\更新日時}) #{row.\相場 or row.\仕入値}"
   cb!
 

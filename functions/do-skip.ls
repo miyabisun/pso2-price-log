@@ -1,9 +1,10 @@
 require! {
+  \prelude-ls : {at}
   \./update-row.ls
 }
 
 module.exports = (status, cb)->
-  unless (row = status.pointer |> at status.rows)
+  unless (row = status.rows |> at status.pointer)
     console.info "item not found."
   else
     price = row.\相場 - /,/g
