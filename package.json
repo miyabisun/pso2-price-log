@@ -19,12 +19,16 @@
   },
   "homepage": "https://github.com/miyabisun/pso2-price-log#readme",
   "dependencies": {
+    "async": "^2.4.0",
     "file-tail": "^0.3.0",
+    "google-auth-library": "^0.10.0",
     "google-spreadsheet": "^2.0.3",
-    "google-spreadsheets": "^0.5.1",
     "livescript": "^1.5.0",
+    "lodash": "^4.17.4",
     "moment": "^2.18.1",
-    "prelude-ls": "^1.1.2"
+    "prelude-ls": "^1.1.2",
+    "request": "^2.81.0",
+    "xml2js": "^0.4.17"
   },
   "devDependencies": {
     "chai": "^3.5.0",

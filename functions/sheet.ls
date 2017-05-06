@@ -1,7 +1,6 @@
 require! {
-  async
   \prelude-ls : {find}
-  \google-spreadsheet : GoogleSpreadsheet
+  \./google-spreadsheet : GoogleSpreadsheet
 }
 
 module.exports = (id, creds, sheet-name, cb)->

@@ -2,7 +2,7 @@ require("livescript");
 var fs = require("fs");
 var moment = require("moment");
 var file_tail = require("file-tail");
-var line = require("../functions/line.ls");
+var line = require("./functions/line.ls");
 
 var path = [
   process.env.HOMEPATH,
@@ -28,4 +28,3 @@ try {
 } catch (e) {
   console.error("not found files...");
 }
-
