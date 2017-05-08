@@ -4,7 +4,7 @@ require! {
 }
 
 module.exports = (status, cb)->
-  if status.pointer >= status.rows.length
+  if status.pointer >= (status.rows.length - 1)
     console.info "pointer is end."
   else
     status.pointer++

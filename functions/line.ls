@@ -4,7 +4,7 @@ require! {
   \./do-next.ls
   \./do-prev.ls
   \./do-skip.ls
-  \./do-regist.ls
+  \./do-add.ls
   \./do-update.ls
   \./reset.ls
   \./parse.ls
@@ -15,12 +15,18 @@ module.exports = (creds, line)-->
   particle = line |> parse
   if particle.target isnt \PARTY => return
   {message} = particle
-  if message is /\/init/ =>
+  if message is /\/init\s/ =>
     console.info "=> initialize!"
     <- do-initialize {status, particle, creds}
     <- do-refresh status
   if status.player-id isnt particle.player-id => return
   switch
+  | message is /\/all/ =>
+    console.info "=> all!"
+    status <<< {all: yes}
+  | message is /\/select/ =>
+    console.info "=> all!"
+    status <<< {all: no}
   | message is /\/exit/ =>
     console.info "=> exit!"
     reset status
@@ -43,10 +49,14 @@ module.exports = (creds, line)-->
     console.info "=> skip!"
     <- do-skip status
     <- do-next status
+  | message is /\/add\s/ =>
+    console.info "=> add item!"
+    particle.message = particle.message - /\/add\s/
+    <- do-add {particle, status}
   | status.mode is \regist =>
-    console.info "=> regist item!"
-    <- do-regist {particle, status}
-  | status.mode is \update =>
+    console.info "=> add item!"
+    <- do-add {particle, status}
+  | status.mode is \update and particle.message is /\d+[km]?$/i =>
     console.info "=> update!"
     <- do-update {particle, status}
     <- do-next status

@@ -5,7 +5,7 @@ require! {
 }
 
 module.exports = (status, cb)-->
-  err, rows <- get-rows status.sheet
+  err, rows <- get-rows status.sheet, status.all
   console.error that if err
   status <<< {rows, pointer: 0}
   if empty status.rows

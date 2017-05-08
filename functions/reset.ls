@@ -4,5 +4,6 @@ module.exports = (status)->
     rows: []
     player-id: null
     mode: \update
+    all: no
     pointer: 0
 
