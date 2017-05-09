@@ -3,7 +3,8 @@ require! {
   moment
   \prelude-ls : {each, find}
   \../../../functions/sheet.ls : main
-  \../../../configs/pso2.json : creds
+  \../../config/pso2.json : creds
+  \../../config/sheet.json : {id: sheet-id, name: sheet-name}
 }
 
 filename = __filename.replace(/^.*(test)/, \test)
@@ -11,7 +12,7 @@ describe filename, ->
   params = {}
   before (done)!->
     @timeout 5_000ms
-    err, info <- main "1kEbYw_LzArMwD5WWtF76N3vMF1N26X4jeMFbUaT8BHI", creds
+    err, info <- main sheet-id, creds, sheet-name
     params <<< {err, info}
     done!
   specify \err_is_null ->
