@@ -2,9 +2,10 @@ require! {
   chai: {expect}
   moment
   \prelude-ls : {each, find, at, flip}
-  \../../../functions/regist-row.ls : main
+  \../../../functions/add-row.ls : main
   \../../../functions/sheet.ls : Spreadsheet
-  \../../../configs/pso2.json : creds
+  \../../config/pso2.json : creds
+  \../../config/sheet.json : {id: sheet-id, name: sheet-name}
 }
 
 filename = __filename.replace(/^.*(test)/, \test)
@@ -12,7 +13,7 @@ describe filename, ->
   params = {}
   before (done)!->
     @timeout 5_000ms
-    sheet_err, sheet <- Spreadsheet "1kEbYw_LzArMwD5WWtF76N3vMF1N26X4jeMFbUaT8BHI", creds
+    _, sheet <- Spreadsheet sheet-id, creds, sheet-name
     err, row <- main sheet, \test, 5000
     params <<< {sheet, err, row}
     done!

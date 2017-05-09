@@ -8,5 +8,5 @@ filename = __filename.replace(/^.*(test)/, \test)
 describe filename, ->
   specify \normal ->
     main (status = {})
-    status |> expect >> (.to.have.contain.keys <[sheet row targetRow playerId mode]>)
+    status |> expect >> (.to.have.contain.keys <[sheet rows playerId mode all pointer]>)
 
