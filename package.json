@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./windows.js",
-    "build": "node ./compile.js",
+    "build": "node ./compile.js && 7za a -tzip ./dist/pso2-price-log.zip ./tmp/pso2-price-log.exe",
     "test": "mocha --compilers ls:livescript"
   },
   "repository": {
