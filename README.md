@@ -1,4 +1,4 @@
-# Overview: 概要
+# 概要 (Overview)
 
 PSO2のアイテムの相場をGoogleスプレッドシートで管理する為のツールです。  
 クライアント改ざんやパケット解析は行っていないので、禁止事項に抵触することは無いとは思いますが、  
@@ -7,7 +7,7 @@ PSO2のアイテムの相場をGoogleスプレッドシートで管理する為�
 対象: Windows 10 (多分Windows 7でも動作する)  
 非対象: PS4, PS Vita
 
-# Installation: インストール方法
+# インストール方法 (Installation)
 
 ## Google Spreadsheet Setting
 
@@ -40,7 +40,7 @@ PSO2のアイテムの相場をGoogleスプレッドシートで管理する為�
 1. [pso2-price-log.zip](https://github.com/miyabisun/pso2-price-log/raw/master/dist/pso2-price-log.zip)をDL
 2. DLしたZIPファイルを解凍してpso2-price-log.exeを取り出す
 
-# Uninstall: アンインストール
+# アンインストール (Uninstall)
 
 レジストリ等は特に使用していないので、そのままゴミ箱に放り込んでください。  
 ただし、Google Develoment関連の設定がアカウントに紐付いてしまっているので削除しておきます。
@@ -49,7 +49,7 @@ PSO2のアイテムの相場をGoogleスプレッドシートで管理する為�
 2. ダッシュボードの左上に`プロジェクト情報`があるので、`プロジェクト設定を管理`をクリック
 3. 設定画面に遷移するので、`削除`ボタンをクリック
 
-# Usage: 使い方
+# 使い方 (Usage)
 
 ## CommandList
 
@@ -84,7 +84,7 @@ pso2-price-log.exe(以下アプリ)を起動すると、SEGAフォルダ内のCh
 - `/skip`  
     アイテムの相場は更新せず、更新日時だけを最新に変更する。
 
-## Regist: 登録
+## 登録 (Regist)
 
 1. pso2-price-log.exe(以下アプリ)を起動
 2. PSO2内のパーティーチャットで`/init [シートID] [シート名]`と発言
@@ -95,7 +95,7 @@ pso2-price-log.exe(以下アプリ)を起動すると、SEGAフォルダ内のCh
     ※名称欄はユニークであるとみなすので、すでに同じアイテムが登録されている場合は登録されない
 7. 全てのアイテムが登録し終わったらパーティーチャットで`/end`と発言
 
-## Update: 更新
+## 更新 (Update)
 
 1. pso2-price-log.exe(以下アプリ)を起動
 2. PSO2内のパーティーチャットで`/init [シートID] [シート名]`と発言
