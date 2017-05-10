@@ -24,9 +24,11 @@ module.exports = (creds, line)-->
   | message is /\/all/ =>
     console.info "=> all!"
     status <<< {all: yes}
+    <- do-refresh status
   | message is /\/select/ =>
-    console.info "=> all!"
+    console.info "=> select!"
     status <<< {all: no}
+    <- do-refresh status
   | message is /\/exit/ =>
     console.info "=> exit!"
     reset status
